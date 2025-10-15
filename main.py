@@ -12,7 +12,7 @@ def generate_tutorial(components):
         model = "gpt-3.5-turbo",
         messages = [
             {"role":"system", "content":"Helping AI assistant"},
-            {"role":"user", "content":f"Suggest a recipe using the items listed as available. Make sure you have a nice name for this recipe listed at the start. Also, include a funny version of the name of the recipe on the following line. Then share the recipe in a step-by-step manner. In the end, write a fun fact about the recipe or any of the items used in the recipe. Here are the items available: {components}, Haldi, Chilly Powder, Tomato Ketchup, Water, Garam Masala, Oil. Try to answer in less than 6 lines"}
+            {"role":"user", "content":f"Suggest a recipe using the items listed as available. Make sure you have a nice name for this recipe. Then share the recipe in a step-by-step manner. Here are the items available: {components}, Haldi, Chilly Powder, Tomato Ketchup, Water, Garam Masala, Oil. Try to answer in less than 6 lines"}
         ]
     )
     return response["choices"][0]["message"]["content"]
