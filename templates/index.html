@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Generator</title>
+    <script>
+      async function generateTutorial() {
+        const components = document.querySelector("#components").value;
+        const output = document.querySelector("#output");
+        output.textContent = "Cooking a recipe for you...";
+        const response = await fetch("/generate", {
+          method: "POST",
+          body: new FormData(document.querySelector("#tutorial-form")),
+        });
+        const newOutput = await response.text();
+        output.textContent = newOutput;
+      }
+
+      function copyToClipboard() {
+        const output = document.querySelector("#output");
+        const textarea = document.createElement("textarea");
+        textarea.value = output.textContent;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        alert("Copied to clipboard..!");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Custom Recipe Generator</h1>
+      <form
+        id="tutorial-form"
+        onsubmit="event.preventDefault(); generateTutorial()"
+      >
+        <div>
+          <label for="components">Ingredients / Items:</label>
+          <input
+            type="text"
+            id="components"
+            name="components"
+            placeholder="eggs, jam,..etc"
+          />
+        </div>
+        <button type="submit">Generate Recipe</button>
+      </form>
+      <div>
+        <div>Output:</div>
+        <button onclick="copyToClipboard()">Copy</button>
+      </div>
+      <div>
+        <pre id="output">{{output}}</pre>
+      </div>
+    </div>
+  </body>
+</html>
